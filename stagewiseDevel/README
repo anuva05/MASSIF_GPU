@@ -1,0 +1,5 @@
+Developing massif pipeline in stages.
+First stage involved writing functions to compare CUFFT output with FFTW. 
+Then, we moved on to develop the CUFFT approach for 2-stage FFT computation over a 3D volume, by doing 1D transform followed by 2D transform.
+Then, callbacks were introduced. Initially the callbacks only zero-ed out the samples that we did not want to keep. The next stages focused on removing the samples so that memory footprint would be reduced.
+Single precision code showed more mismatch with FFTW values even for magnitudes of the order of 10e-5. Hence, we are sticking to double precision.
