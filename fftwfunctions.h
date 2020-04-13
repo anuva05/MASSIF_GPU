@@ -105,6 +105,6 @@ extern "C" int verify_with_fftw(double *fftw_output, double *cufft_output){
                   }
                     }
 
-        printf("Correctness: %d\n", correct);
-        return correct;
+  printf("Correctness: %d\n", correct);
+  return correct;
 }

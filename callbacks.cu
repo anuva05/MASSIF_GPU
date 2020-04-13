@@ -18,11 +18,11 @@ __device__ cufftDoubleComplex pad_stage0(void *dataIn, size_t offset, void *call
      cufftDoubleComplex r;
 
    if (((0 <= dim0) && (dim0 < K)) && ((0 <= dim1) && (dim1 < K)) && ((0 <= dim2) && (dim2 < K))) {
-     //printf("offset:%d, val:%lf\n", offset, (*(input + ((1 * dim0) + (K * dim1) + (K*K * dim2)))).x);
+
       return *(input + ((1 * dim0) + (K* dim1) + (K*K * dim2)));
    }
   else {
-     //printf("offset:%d, val: 0 \n", offset);
+
        r.x = 0.0;
        r.y = 0.0;
        return r;
@@ -30,7 +30,7 @@ __device__ cufftDoubleComplex pad_stage0(void *dataIn, size_t offset, void *call
 }
 __device__ cufftCallbackLoadZ d_pad_stage0 = pad_stage0;
 
-//load callback for next stage
+
 __device__ cufftDoubleComplex pad_stage1(void *dataIn, size_t offset, void *callerInfo, void *sharedPtr) {
 
    // B pencils of length K are padded to B pencils of length NZ.
@@ -42,14 +42,12 @@ __device__ cufftDoubleComplex pad_stage1(void *dataIn, size_t offset, void *call
 
    if (offset<B*K) {
       r =*(input + offset);
-      printf("offset:%d, val: %lf \n", offset, r.x);
       return r;
    }
   else {
 
        r.x = 0.0;
        r.y = 0.0;
-       printf("offset:%d, val: 0 \n", offset);
        return r;
    }
 }
@@ -65,7 +63,7 @@ __device__ void greens_pointwise (void *dataOut, size_t offset, cufftDoubleCompl
 	  ((cufftDoubleComplex*)dataOut)[offset] = r;
 }
 
-//to load the callback function onto the CPU, since it is a device function and resides only on GPU
+
 __device__ cufftCallbackStoreZ d_greens_pointwise = greens_pointwise;
 
 
@@ -73,7 +71,7 @@ __device__ cufftCallbackStoreZ d_greens_pointwise = greens_pointwise;
 
 __device__ void sample_stage0(void *dataOut, size_t offset, cufftDoubleComplex element, void *callerInfo, void *sharedPtr) {
 
-//if 'z' value is not in 0 to K or not one of the pre-specified planes, then set it to 0.
+
   cufftDoubleComplex r;
   int z;
   int el;
@@ -96,11 +94,10 @@ __device__ cufftCallbackStoreZ d_sample_stage0 = sample_stage0;
 
 __device__ void sample_stage1(void *dataOut, size_t offset, cufftDoubleComplex element, void *callerInfo, void *sharedPtr) {
 
-  // X and Y values should be corresponding to the samples we want to keep
   int dim0, dim1, dim2;
   int off = static_cast<int>(offset);
   int numSamplesPerPlane, samplesPerXRow, numRepeatedSamples;
-  int idx;//special index for samplem
+  int idx;
   cufftDoubleComplex *d_result = (cufftDoubleComplex*)callerInfo;
 
 
@@ -118,7 +115,8 @@ __device__ void sample_stage1(void *dataOut, size_t offset, cufftDoubleComplex e
 
 
   //create custom array to store samples
-  //if point is in domain
+
+  //For points that are in the domain
   if(dim2<K){
     if((dim0>=0 && dim0 <K)&&(dim1>=0 && dim1 <K)){
       //store in appropriate location in the compressed output
@@ -132,6 +130,8 @@ __device__ void sample_stage1(void *dataOut, size_t offset, cufftDoubleComplex e
 
   }
 
+
+  //For points that are not in the domain
   if(dim2>=K){
 
     if(dim0%DS == 0 && dim1%DS == 0){
@@ -145,6 +145,3 @@ __device__ void sample_stage1(void *dataOut, size_t offset, cufftDoubleComplex e
 
 
 __device__ cufftCallbackStoreZ d_sample_stage1 = sample_stage1;
-
-
-/* --------- Callbacks that perform sampling End -------------*/
