@@ -1,0 +1,2 @@
+FFTW is disabled for the examples in this folder. Only CUDA code with downsampling is being tested for sizes equal to and larger than 1024 x 1024 x 1024
+

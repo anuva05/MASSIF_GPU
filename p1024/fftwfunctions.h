@@ -91,7 +91,7 @@ extern "C" void execute_fftw_3d_plan_inverse(fftw_plan *plan3Dinv, double *tempi
 
 }
 
-/*
+
 
 
 extern "C" int verify_with_fftw(double *fftw_output, double *cufft_output){
@@ -108,4 +108,3 @@ extern "C" int verify_with_fftw(double *fftw_output, double *cufft_output){
   printf("Correctness: %d\n", correct);
   return correct;
 }
-*/
