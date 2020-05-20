@@ -1,0 +1,68 @@
+
+typedef short octreeNodeIndex;
+struct octreeNodeData {
+    octreNodeIndex root;
+    octreeNodeIndex children[8];
+    octreeNodeIndex parent;
+    //remainder of things
+}
+
+
+//locate cube into which dim0,dim1,dim2 falls.
+TREE SEARCH
+
+n = root
+pt_to_search = x,y,z
+q.append(root)
+while(len(q)) :
+  n  =  q.pop()
+  xmin = n.xmin
+  xmax = n.xmax
+  if pt_to_search.x > xmin and pt_to_search < xmax
+      the we should return the node
+    else:
+
+      for each child of n:
+        q.append(child)
+
+
+
+
+///////
+cube_params = 8;
+curr_location = 0;
+for(i=0;i<tot_cubes;i++){
+
+   xmin = octree[i*cube_params];
+   ymin = octree[i*cube_params + 1];
+   zmin = octree[i*cube_params + 2];
+   xmax = octree[i*cube_params + 3];
+   ymax = octree[i*cube_params + 4];
+   zmax = octree[i*cube_params + 5];
+
+   downsample_rate = octree[i*cube_params + 6];
+   zdownsample_rate = octree[i*cube_params + 7];
+
+
+   ////then for each x,y,z, adjust the origin
+
+
+   x_adj = x - xmin;
+   y_adj s= y - ymin;
+   z_adj = z - zmin;
+
+   //check if x,y,z are to be sampled
+   //z condition = we check differently
+   if x_adj/downsample_rate==0 && y_adj/downsample_rate==0
+      samples_in_plane= (ymax-ymin/downsample_rate)*(xmax-xmin/downsample_rate);
+
+      samples[curr_location + samples_in_plane*((zmax-zmin)/zdownsample_rate) + ((xmax-xmin)/downsample_rate)*y_adj/downsample_rate + x_adj/downsample_rate]=element;
+
+
+    size_curr_block = ((xmax-xmin)*(ymax-ymin)/downsample_rate^2)*((zmax-zmin)/zdownsample_rate);
+    curr_location += size_curr_block;
+}
+
+index into the table
+ds
+char or shrot
