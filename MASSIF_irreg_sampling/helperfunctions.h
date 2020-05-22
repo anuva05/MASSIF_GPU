@@ -8,27 +8,89 @@
 #include <cufftXt.h>
 #include <fftw3.h>
 #include <float.h>
+#include <fstream>
 
-/*
-class CudaInput{
-public:
-  int* octreeTable;
-  cufftDoubleComplex* samples;
-  //constructor
-  CudaInput(int final_samples){
-    octreeTable = new int[5*(NX/OCTREE_FINEST)*(NY/OCTREE_FINEST)*(NZ/OCTREE_FINEST)];
-    octreeTable[0]=10;
-    samples = new cufftDoubleComplex[final_samples];
-  }
-};
+void write_to_csv(CudaInput *c){
 
-//function to check if callback input is being read into GPU
-__global__ void check_input(CudaInput *in){
-  int i;
-  printf("Input entry copied in = %d\n", in.octreeTable[0] );
+
+        int XB, YB, ZB;
+        int x,y,z;
+        int adjustedX, adjustedY, adjustedZ;
+        int xstart, ystart, zstart;
+        int start_loc, sample_loc;
+        int blocks, current_ds;
+        int b, prevNumEntries,count;
+        int numEntries;
+        cufftDoubleComplex element;
+
+       std::ofstream outfile;
+       outfile.open ("samples.csv");
+       outfile << "x,y,z,real_val, imag_val\n";
+       //decode octree
+
+
+         XB = NX/OCTREE_FINEST;
+         YB = NY/OCTREE_FINEST;
+         ZB = NZ/OCTREE_FINEST;
+         blocks = XB*YB*ZB;
+
+         b = 0;
+         prevNumEntries = 0;
+           while(b<blocks){
+
+                 xstart= c->octree[b*5] ;
+                 ystart = c->octree[b*5+1];
+                 zstart = c->octree[b*5+2];
+                 current_ds = c->octree[b*5+3];
+                 numEntries= c->octree[b*5+4];
+
+                 if( b > 0){
+                   start_loc =  c->octree[(b-1)*5+4 ];}
+                 else{
+                   start_loc = 0;
+                 }
+
+
+                 count  = 0;
+
+
+                 for (z=zstart; z< zstart + OCTREE_FINEST; z++){
+                   for(y=ystart; y<ystart + OCTREE_FINEST;y++){
+                     for(x=xstart; x<xstart+OCTREE_FINEST;x++){
+                       adjustedX = x % OCTREE_FINEST;
+                       adjustedY = y % OCTREE_FINEST;
+                       adjustedZ = z % OCTREE_FINEST;
+                       if((adjustedX%current_ds==0)&&(adjustedY%current_ds==0)&&(adjustedZ%current_ds==0)){
+                        sample_loc = (adjustedZ/current_ds)*(OCTREE_FINEST*OCTREE_FINEST)/(current_ds*current_ds) + (adjustedY/current_ds)*(OCTREE_FINEST/current_ds) + adjustedX/current_ds;
+
+                        element.x = c->result[start_loc + sample_loc].x;
+                        element.y = c->result[start_loc + sample_loc].y;
+                        count = count + 1;
+                        //write to  csv
+                        outfile << x <<"," << y << "," << z << "," << element.x << "," << element.y << "\n";
+
+                       }
+                     }
+                   }
+                 }
+
+                if (count != numEntries - prevNumEntries){
+                  printf("ERROR IN WRITE_TO_CSV\n" );
+                }
+                prevNumEntries = numEntries;
+           //now go to next block
+           b= b+1;
+
+         }
+
+
+
+
+       outfile.close();
+
 
 }
-*/
+
 
 
 
@@ -452,10 +514,15 @@ cout<<"executing first stage fft"<<endl;
     result[i].x = c.result[i].x;
     result[i].y = c.result[i].y;
     sum = sum + (result[i].x*result[i].x +result[i].y*result[i].y);
-    printf("sample number = %d,val= %lf +i*%lf\n",i, c.result[i].x , c.result[i].y);
+    if (i<20) {
+      printf("sample number = %d,val= %lf +i*%lf\n",i, c.result[i].x , c.result[i].y);
+    }
     i = i + 1;
   }
   printf("SUM OF SQUARES OF SAMPLES  = %lf\n",sum );
+
+  //Write the decoded octree samples to a csv file
+  write_to_csv(&c);
 
   num_samples =   NX*NY*((NZ-K)/DS);
   cudaStatus = cudaMemcpy(unsampled_result, d_inv_stage2, sizeof(cufftDoubleComplex)*(num_samples), cudaMemcpyDeviceToHost);
