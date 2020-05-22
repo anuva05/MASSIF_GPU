@@ -1,0 +1,4 @@
+incorporated octree into the callbacks.
+for now, summing the squares of the samples and comparing
+with sum of squares of the fftw output. as the size of the cube increases, 
+the two are closer in magnitude.

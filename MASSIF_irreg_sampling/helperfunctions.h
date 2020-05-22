@@ -444,23 +444,18 @@ cout<<"executing first stage fft"<<endl;
   }
   printf("copied first entry to c_result: %lf\n", c.result[0].x );
 
-
-  //cudaMemcpy(c.numEntries, temp_result, sizeof(cufftDoubleComplex)*c.numEntries, cudaMemcpyDeviceToHost )
-
-
-  //cudaMemcpy(test, &(d_c->numEntries), sizeof(int *), cudaMemcpyDeviceToHost);
-
-/////
-
-  num_samples = *final_samples;
-  cudaStatus = cudaMemcpy(result, d_result, sizeof(cufftDoubleComplex)*(num_samples), cudaMemcpyDeviceToHost);
- 	if (cudaStatus != cudaSuccess){
- 		fprintf(stderr, "cudaMemcpy failed!");
- 		goto Error;
-
+  //copy the result into an output array
+  i= 0;
+  double sum ;
+  sum = 0;
+  while(i<c.numEntries){
+    result[i].x = c.result[i].x;
+    result[i].y = c.result[i].y;
+    sum = sum + (result[i].x*result[i].x +result[i].y*result[i].y);
+    printf("sample number = %d,val= %lf +i*%lf\n",i, c.result[i].x , c.result[i].y);
+    i = i + 1;
   }
-
-
+  printf("SUM OF SQUARES OF SAMPLES  = %lf\n",sum );
 
   num_samples =   NX*NY*((NZ-K)/DS);
   cudaStatus = cudaMemcpy(unsampled_result, d_inv_stage2, sizeof(cufftDoubleComplex)*(num_samples), cudaMemcpyDeviceToHost);
@@ -485,7 +480,9 @@ Error:
   cufftDestroy(*(plans + 2));
   cufftDestroy(*(plans + 3));
 	free(plans);
+
 	cudaFree(d_a);
+  cudaFree(d_c);
   cudaFree(d_temp1);
   cudaFree(d_temp2);
 	cudaFree(d_fw_stage0);

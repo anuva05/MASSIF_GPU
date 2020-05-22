@@ -5,6 +5,7 @@ class CudaInput
 public:
 int* octree;
 double* result;
+int num;
 
 CudaInput(int final_samples) {
     octree = new int[10];
@@ -12,6 +13,8 @@ CudaInput(int final_samples) {
     result=  new double[final_samples];
 
     result[1]=10.0;
+
+    int num=  5;
 }
 };
 

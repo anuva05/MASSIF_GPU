@@ -58,7 +58,7 @@ int octree_table_construct(int *ds_rates, int *octreeTable){
           numEntries= numEntries+ (OCTREE_FINEST*OCTREE_FINEST*OCTREE_FINEST)/(current_ds*current_ds*current_ds);
           octreeTable[b*5+4] = numEntries;
 
-          printf("STARTS: %d,%d,%d   DS= %d    numEntries = %d\n", octreeTable[b*5],octreeTable[b*5+1],octreeTable[b*5+2],octreeTable[b*5+3],octreeTable[b*5+4] );
+          //printf("STARTS: %d,%d,%d   DS= %d    numEntries = %d\n", octreeTable[b*5],octreeTable[b*5+1],octreeTable[b*5+2],octreeTable[b*5+3],octreeTable[b*5+4] );
           b= b+1;
   }}}
 //max value for b should be b= blocks

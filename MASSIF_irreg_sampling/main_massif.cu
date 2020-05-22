@@ -9,6 +9,7 @@ using namespace std::chrono;
 #include "helperfunctions.h"
 #include "fftwfunctions.h"
 #include "octree_table_host.cu"
+#include <fftw3.h>
 /*******************************
 
  Main function
@@ -55,37 +56,6 @@ int main(int argc, char **argv){
 
   final_samples = octree_table_construct(ds_rates, octreeTable);
 
-/*
-  // trying to allocate struct
-
-	 /// little experiment with the struct
-	 CudaInput c(5);
-	 // create class storage on device and copy top level class
-	 CudaInput *d_c;
-
-	 cudaMalloc((void **)&d_c, sizeof(CudaInput));
-	 cudaMemcpy(d_c, &c, sizeof(CudaInput), cudaMemcpyHostToDevice);
-	 // make an allocated region on device for use by pointer in class
-	 int *temp_octree;
-	 double *temp_result;
-
-
-	 cudaMalloc((void **)&temp_octree, sizeof(int)*10);
-	 cudaMemcpy(temp_octree, c.octree, sizeof(int)*10, cudaMemcpyHostToDevice);
-
-	 cudaMalloc((void **)&temp_result, sizeof(double)*5);
-	 cudaMemcpy(temp_result, c.result, sizeof(double)*5, cudaMemcpyHostToDevice);
-	 // copy pointer to allocated device storage to device class
-	 cudaMemcpy(&(d_c->octree), &temp_octree, sizeof(int *), cudaMemcpyHostToDevice);
-	 cudaMemcpy(&(d_c->result), &temp_result, sizeof(double *), cudaMemcpyHostToDevice);
-
-
-
-*/
-
-
-
-
 
 	//allocating device side arrays
 	cudaMalloc((void**)&d_a, sizeof(cufftDoubleComplex)*K*K*K);
@@ -124,10 +94,10 @@ count = 0;
 for(int i=0;i<K;i++){
 	for(int j=0;j<K;j++){
 	  for(int k=0;k<K;k++){
-	    data[NX*NY*i + NX*j + k ].x= i*j*k+0.3 ;//arbitrary value
+	    data[NX*NY*i + NX*j + k ].x= i+j+k+0.5 ;//arbitrary value
 	    data[NX*NY*i + NX*j + k].y=0;
 
-	    small_cube[K*K*i + K*j + k].x = i*j*k + 0.3; //same value as data
+	    small_cube[K*K*i + K*j + k].x = i+j+k + 0.5; //same value as data
 	    small_cube[K*K*i + K*j + k].y=0;
 
 	  }}}
@@ -176,7 +146,7 @@ if (cudaStatus != cudaSuccess) {
 *  and compute it for comparison
 *******************************/
 
-/*
+
 
 printf("creating fftw plan\n");
 
@@ -192,8 +162,17 @@ count = 0;
 for(int i=0;i<NZ;i++){
 	for(int j=0;j<NY;j++){
 		for(int k=0;k<NX;k++){
-			fftw_input[count]= data[NX*NY*i + NX*j + k].x;
-			fftw_input[count+1] = data[NX*NY*i + NX*j + k].y;
+
+			if((i<K) && (j<K) && (k<K)){
+				fftw_input[count]= data[NX*NY*i + NX*j + k].x;
+				fftw_input[count+1] = data[NX*NY*i + NX*j + k].y;
+		}
+		else{
+				fftw_input[count]= 0.0;
+				fftw_input[count+1] =0.0;
+
+		}
+
 			count=count+2;
 		}}}
 cout<<"end of input, count="<< count << endl;
@@ -225,7 +204,7 @@ auto durationFFTW = duration_cast<microseconds>(stop - start);
  if(TO_PRINT==1){
 
 
-		 printResult(result, final_samples);
+		// printResult(result, final_samples);
 
 		 cout<< "CUFFT unsampled first plane"<<endl;
 		 count = 0;
@@ -260,6 +239,15 @@ else{
 
 }
 
+//sum of squares of fftw
+count = 0;
+double sum = 0;
+while(count<NX*NY*NZ){
+	sum = sum +  fftw_output[2*count]*fftw_output[2*count] +  fftw_output[2*count+1] *fftw_output[2*count+1] ;
+	count = count + 1;
+}
+
+cout << "SUM OF SQUARES OF FFTW = " << sum << endl;
 
 //Print timing info
 cout << "CUDA time duration (plan create + execute):" << double(durationCUDA.count())/1000000 << endl ;
@@ -270,11 +258,11 @@ fftw_destroy_plan(*plan3dinv);
 
 
 delete [] data;
-delete [] result;
+delete [] result1;
 delete [] fftw_input;
 delete [] fftw_output;
 delete [] small_cube;
-*/
+
 return 0;
 
 }

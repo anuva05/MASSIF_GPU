@@ -69,9 +69,16 @@ extern "C" void create_3Dplan_inverse(fftw_plan *plan3dinv, double *temp, double
 
 extern "C" void execute_fftw_3d_plan_forward(fftw_plan *plan3D, double *tempio0, double *temp) {
 
-
+  int i;
   fftw_execute_dft(*(plan3D + 0), (fftw_complex*)tempio0, (fftw_complex*) temp);
   fftw_execute_dft(*(plan3D + 1), (fftw_complex*) temp, (fftw_complex*) temp);
+/*
+  i= 2*NX*NY*3;
+ printf("FFTW output (first XY plane)\n");
+ while(i<2*NX*NY*4){
+    printf("%d:, %lf , %lf\n", i/2, *(temp+ i), *(temp+i+1));
+    i= i + 2;
+  }*/
 
 }
 extern "C" void execute_fftw_3d_plan_inverse(fftw_plan *plan3Dinv, double *tempio0, double *temp) {
@@ -79,8 +86,8 @@ extern "C" void execute_fftw_3d_plan_inverse(fftw_plan *plan3Dinv, double *tempi
   fftw_execute_dft(*(plan3Dinv + 0), (fftw_complex*)tempio0, (fftw_complex*) temp);
   fftw_execute_dft(*(plan3Dinv + 1), (fftw_complex*) temp, (fftw_complex*) temp);
 
-/*
 
+/*
    i= 2*NX*NY*3;
   printf("FFTW output (first XY plane)\n");
   while(i<2*NX*NY*4){

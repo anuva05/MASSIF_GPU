@@ -57,6 +57,13 @@ CudaInput() {
 
   }}}
 
+/*
+   b =0;
+   while(b<blocks){
+     printf("ds rate for %d= %d \n",b,ds_rates[b] );
+     b=b+1;
+   }
+   */
 
     numEntries=0;//number of samples in the result
     b = 0;
@@ -73,7 +80,7 @@ CudaInput() {
             numEntries= numEntries+ (OCTREE_FINEST*OCTREE_FINEST*OCTREE_FINEST)/(current_ds*current_ds*current_ds);
             octree[b*5+4] = numEntries;
 
-            printf("STARTS: %d,%d,%d   DS= %d    numEntries = %d\n", octree[b*5],octree[b*5+1],octree[b*5+2],octree[b*5+3],octree[b*5+4] );
+            //printf("STARTS: %d,%d,%d   DS= %d    numEntries = %d\n", octree[b*5],octree[b*5+1],octree[b*5+2],octree[b*5+3],octree[b*5+4] );
             b= b+1;
     }}}
 
@@ -91,6 +98,13 @@ CudaInput() {
 
 }
 //write a desctructor too
+~CudaInput(){
+
+  delete [] octree;
+  delete [] ds_rates;
+  delete [] result;
+
+}
 };//finished creating struct
 
 
@@ -176,6 +190,7 @@ __device__ void sample_stage0(void *dataOut, size_t offset, cufftDoubleComplex e
       ((cufftDoubleComplex*)dataOut)[B*(K + (z/DS1)-1) + el] = element;
     }
 
+
   }
   if (z>=Kprime){
     if (z%DS2 == 0){
@@ -200,6 +215,15 @@ __device__ void sample_stage1(void *dataOut, size_t offset, cufftDoubleComplex e
 
   CudaInput *in = (CudaInput *)callerInfo;
 
+  /* Logic: get the block in which current (x,y,z) computed from offset belongs to
+   This is given by block_number.
+   Then get the numEntries total till the prev block. This is start_loc
+   Then get current block's DS rate in current_ds
+   Then get the sample loc
+   Put the value at (x,y,z) in start_loc + sample_loc
+
+
+  */
 
 
   int cubex, cubey, cubez;
@@ -215,6 +239,16 @@ __device__ void sample_stage1(void *dataOut, size_t offset, cufftDoubleComplex e
   dim1 = (off - NX*NY*dim2)/NX;
   dim0 = (off - NX*NY*dim2 - NX*dim1);
 
+  //make adjustment for sample_stage0
+  //currently DS1==DS1
+  if (dim2 >= K){
+
+    dim2 = DS1*(dim2 - K ) + K;
+
+
+  }
+
+
   cubex = dim0/ OCTREE_FINEST;
   cubey = dim1/ OCTREE_FINEST;
   cubez = dim2/ OCTREE_FINEST;
@@ -222,39 +256,37 @@ __device__ void sample_stage1(void *dataOut, size_t offset, cufftDoubleComplex e
   block_number = cubex + XB*cubey + XB*YB*cubez;
 
 
-  printf("first cube ds = %d,%d,%d,%d\n",  in->octree[0],in->octree[1],in->octree[2],in->octree[3]);
+  //printf("first cube vals = %d,%d,%d,%d, %d\n",  in->octree[0],in->octree[1],in->octree[2],in->octree[3], in->octree[4]);
 
- /*
-  //start loc in output array. Prev block's end loc
-  if (block_number>0){
-    start_loc = ((int*)d_octreeTable)[(block_number-1)*5 + 4];
-  }
+
+  //start loc in output array=where prev block ends
+  if( block_number > 0){
+    start_loc =  in->octree[(block_number-1)*5+4 ];}
   else{
     start_loc = 0;
   }
-  printf("Computed vals: cubex, cubey, cubez = %d,%d,%d, block=%d\n", cubex, cubey, cubez, block_number );
+
+  //printf("Computed vals: cubex, cubey, cubez = %d,%d,%d, block=%d\n", cubex, cubey, cubez, block_number );
 
   //sampling rate of this block
-  current_ds = ((int*)d_octreeTable)[block_number*5 + 3];
+  current_ds = in->octree[block_number*5 + 3];
 
-  printf("Retrieved vals: Start loc: %d, current ds = %d \n",  start_loc, current_ds );
+  //printf("Retrieved vals: Start loc: %d, current ds = %d \n",  start_loc, current_ds );
 
   adjustedX = dim0 % OCTREE_FINEST;
   adjustedY = dim1 % OCTREE_FINEST;
   adjustedZ = dim2 % OCTREE_FINEST;
 
 
+
   if((adjustedX%current_ds==0)&&(adjustedY%current_ds==0)&&(adjustedZ%current_ds==0)){
    sample_loc = (adjustedZ/current_ds)*(OCTREE_FINEST*OCTREE_FINEST)/(current_ds*current_ds) + (adjustedY/current_ds)*(OCTREE_FINEST/current_ds) + adjustedX/current_ds;
-   printf("sample loc = %d\n", sample_loc);
+   //printf("Adjusted: %d, %d,%d \n",  adjustedX, adjustedY, adjustedZ);
+   //printf("start loc = %d, sample loc = %d\n", start_loc, sample_loc);
 
-   d_result[start_loc + sample_loc]=element;
+   in->result[start_loc + sample_loc]=element;
   }
-*/
-   //put values in in.result and we should be done
-   in->result[0].x = 4;
-   in->result[0].y = 10;
-   printf("put this value : %lf\n",  in->result[0].x);
+
 
   ((cufftDoubleComplex*)dataOut)[offset] = element;
 
