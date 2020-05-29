@@ -93,7 +93,7 @@ void write_to_csv(CudaInput *c){
 
 
 void write_fftw_to_csv(double *arr){
-  int i,j,k,count;
+  int count;
 
   std::ofstream outfile;
   outfile.open ("samples_fftw.csv");
@@ -108,7 +108,7 @@ void write_fftw_to_csv(double *arr){
 
   			count=count+2;
   		}}}
-outfile.close();
+  outfile.close();
 
 }//write fftw to csv
 
@@ -184,9 +184,9 @@ cudaError_t minibatch_CuFFT(int argc, char **argv, cufftDoubleComplex* h_a, cuff
   cudaError_t cudaStatus;
   cufftResult cufftStatus;
   cufftHandle *plans;
-  int count, offset;
+  int offset;
   int b;
-  int k;
+
   //	long *input_address, *output_address;
   cufftDoubleComplex* d_fw_stage0;
   cufftDoubleComplex* d_temp1;
@@ -199,7 +199,7 @@ cudaError_t minibatch_CuFFT(int argc, char **argv, cufftDoubleComplex* h_a, cuff
 
   int i,strideIdx;
   int blocks =(NX/OCTREE_FINEST)*(NY/OCTREE_FINEST)*(NZ/OCTREE_FINEST);
-  cufftDoubleComplex* t;
+
 
 
   plans = (cufftHandle*) malloc(4 * sizeof(cufftHandle));
@@ -256,11 +256,12 @@ cudaError_t minibatch_CuFFT(int argc, char **argv, cufftDoubleComplex* h_a, cuff
   cudaMemcpy(temp_numEntries, &c.numEntries, sizeof(int), cudaMemcpyHostToDevice);
 
   //c.result =  new cufftDoubleComplex [*c.numEntries];
-  printf("here2\n" );
+  printf("Init c.result to zeros..\n" );
   c.result = (cufftDoubleComplex *)malloc(sizeof(cufftDoubleComplex)*(c.numEntries));
-  c.result[0].x = 5;
-  c.result[0].y = 10;
-  printf("value in the c.result array = %d\n",c.result[0].x );
+  for(i=0;i< c.numEntries;i++){
+    c.result[i].x = 0.0;
+    c.result[i].y = 0.0;
+  }
   cudaMalloc((void **)&temp_result, sizeof(cufftDoubleComplex)*(c.numEntries));
   cudaMemcpy(temp_result, c.result, sizeof(cufftDoubleComplex)*(c.numEntries), cudaMemcpyHostToDevice);
 
@@ -320,6 +321,13 @@ cudaError_t minibatch_CuFFT(int argc, char **argv, cufftDoubleComplex* h_a, cuff
 
 
   //copy data
+  /*
+   count = 0;
+   while(count<K*K*K){
+     printf("input = %lf \n", h_a[count].x );
+     count = count + 1;
+   }*/
+
 	 cudaStatus = cudaMemcpy(d_a, h_a, sizeof(cufftDoubleComplex)*K*K*K, cudaMemcpyHostToDevice);
           if (cudaStatus != cudaSuccess) {
                  fprintf(stderr, "dev_in cudaMalloc failed!");
@@ -504,8 +512,7 @@ cout<<"executing first stage fft"<<endl;
 //Copy out output
 
 //// testing if there is data in the struct
-  int *test ;
-  test = (int*)malloc(sizeof(int));
+
   printf("about to copy out the value in struct\n" );
   c.numEntries= 100;
   cudaStatus = cudaMemcpy(&c.numEntries, temp_numEntries, sizeof(int), cudaMemcpyDeviceToHost);
@@ -533,9 +540,9 @@ cout<<"executing first stage fft"<<endl;
     result[i].x = c.result[i].x;
     result[i].y = c.result[i].y;
     sum = sum + (result[i].x*result[i].x +result[i].y*result[i].y);
-    if (i<20) {
-      printf("sample number = %d,val= %lf +i*%lf\n",i, c.result[i].x , c.result[i].y);
-    }
+  //  if (i<20) {
+    //  printf("sample number = %d,val= %lf +i*%lf\n",i, c.result[i].x , c.result[i].y);
+  //  }
     i = i + 1;
   }
   printf("SUM OF SQUARES OF SAMPLES  = %lf\n",sum );

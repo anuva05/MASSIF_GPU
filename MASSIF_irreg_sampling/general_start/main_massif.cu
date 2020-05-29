@@ -5,7 +5,7 @@
 using namespace std;
 using namespace std::chrono;
 #include "inputs.h"
-#include "callbacks_octree.cu"
+#include "callbacks.cu"
 #include "helperfunctions.h"
 #include "fftwfunctions.h"
 #include "octree_table_host.cu"
@@ -32,7 +32,7 @@ int main(int argc, char **argv){
   double *fftw_output = new double[2*NX*NY*NZ];
 	double  *cufft_output = new double[2*NX*NY*NZ];
   int count;
-  int correct;
+
   fftw_plan plan3d[2];
   fftw_plan plan3dinv[2];
 
@@ -42,10 +42,8 @@ int main(int argc, char **argv){
   int final_samples;
 	int blocks;
 	int *octreeTable;
-	int *d_octreeTable_temp;
 	int XB, YB, ZB;
 	int *ds_rates;
-	void *px;
 	XB = NX/OCTREE_FINEST;
 	YB = NY/OCTREE_FINEST;
 	ZB = NZ/OCTREE_FINEST;
@@ -91,14 +89,14 @@ int main(int argc, char **argv){
 cout<<"creating data"<<endl;
 //create small data cube inside larger data cube
 count = 0;
-for(int i=0;i<K;i++){
-	for(int j=0;j<K;j++){
-	  for(int k=0;k<K;k++){
-	    data[NX*NY*i + NX*j + k ].x= i+j+k+0.5 ;//arbitrary value
+for(int i=startZ;i<startZ + K;i++){
+	for(int j=startY;j< startY + K;j++){
+	  for(int k=startX;k< startX+K;k++){
+	    data[NX*NY*i + NX*j + k ].x= 100 + i + j + k ;
 	    data[NX*NY*i + NX*j + k].y=0;
 
-	    small_cube[K*K*i + K*j + k].x = i+j+k + 0.5; //same value as data
-	    small_cube[K*K*i + K*j + k].y=0;
+	    small_cube[K*K*(i-startZ) + K*(j-startY) + (k-startX)].x = 100 + i + j + k ; //same value as data
+	    small_cube[K*K*(i-startZ) + K*(j-startY) + (k-startX)].y=0;
 
 	  }}}
 
@@ -163,13 +161,15 @@ for(int i=0;i<NZ;i++){
 	for(int j=0;j<NY;j++){
 		for(int k=0;k<NX;k++){
 
-			if((i<K) && (j<K) && (k<K)){
+			if((i>=startZ)&&(i<startZ + K) && (j>=startY)&&(j<startY + K) && (k>=startX)&&(k<startX + K) ){
 				fftw_input[count]= data[NX*NY*i + NX*j + k].x;
 				fftw_input[count+1] = data[NX*NY*i + NX*j + k].y;
+
+				//cout<< fftw_input[count] << endl ;
 		}
 		else{
 				fftw_input[count]= 0.0;
-				fftw_input[count+1] =0.0;
+				fftw_input[count+1] = 0.0;
 
 		}
 
@@ -208,14 +208,14 @@ auto durationFFTW = duration_cast<microseconds>(stop - start);
 		// printResult(result, final_samples);
 
 		 cout<< "CUFFT unsampled first plane"<<endl;
-		 count = 0;
-		 while(count<NX*NY){
+		 count = 7*NX*NY;
+		 while(count<8*NX*NY){
 			 cout<< count << ": CUFFT :" << unsampled_result[count].x <<"," << unsampled_result[count].y << endl;
 			 count = count + 1;
 		 }
 		 cout<< "FFTW first plane"<<endl;
-		 count = 0;
-		 while(count<NX*NY){
+		 count =7*NX*NY;
+		 while(count<8*NX*NY){
 			 cout<< count << ": FFTW:" << fftw_output[2*count] <<"," << fftw_output[2*count+1] << endl;
 			 count = count + 1;
 		 }
@@ -226,13 +226,13 @@ else{
 
 		 cout<< "First few values of CUFFT output"<<endl;
 		 count = 0;
-		 while(count<20){
+		 while(count<5){
 			 cout<< count << ": CUFFT:" << unsampled_result[count].x <<"," << unsampled_result[count].y << endl;
 			 count = count + 1;
 		 }
 		 cout<< "First few values of FFTW output"<<endl;
 		 count = 0;
-		 while(count<20){
+		 while(count<5){
 			 cout<< count << ": FFTW:" << fftw_output[2*count] <<"," << fftw_output[2*count+1] << endl;
 			 count = count + 1;
 		 }
@@ -240,6 +240,7 @@ else{
 
 }
 
+/*
 //sum of squares of fftw
 count = 0;
 double sum = 0;
@@ -249,7 +250,7 @@ while(count<NX*NY*NZ){
 }
 
 cout << "SUM OF SQUARES OF FFTW = " << sum << endl;
-
+*/
 //Print timing info
 cout << "CUDA time duration (plan create + execute):" << double(durationCUDA.count())/1000000 << endl ;
 cout << "FFTW time duration (plan create + execute):" << double(durationFFTW.count())/1000000 << endl ;
