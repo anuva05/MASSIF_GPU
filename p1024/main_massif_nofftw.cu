@@ -24,6 +24,7 @@ int main(int argc, char **argv){
   cufftDoubleComplex *result;
   int count;
   int correct;
+
   //Device variables
   cufftDoubleComplex *d_result;
   cufftDoubleComplex *d_a;

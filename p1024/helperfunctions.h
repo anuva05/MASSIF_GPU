@@ -83,6 +83,8 @@ cudaError_t minibatch_CuFFT(int argc, char **argv, cufftDoubleComplex* h_a, cuff
   int count, offset;
   int b;
   int k;
+  size_t mem_free_0 = 0;
+  size_t mem_tot_0 = 0;
   //	long *input_address, *output_address;
   cufftDoubleComplex* d_fw_stage0;
   cufftDoubleComplex* d_temp1;
@@ -124,6 +126,12 @@ cudaError_t minibatch_CuFFT(int argc, char **argv, cufftDoubleComplex* h_a, cuff
   int onembed3[] = {NX,NY};
   int n_3[] = {NX,NY};
   int num_samples;
+
+
+
+  cudaMemGetInfo  (&mem_free_0, & mem_tot_0);
+std::cout<<"Free memory before malloc: "<<mem_free_0<<std::endl;
+
 
 
   cudaMalloc((void**)&d_offset, sizeof(int));
@@ -172,6 +180,9 @@ cudaError_t minibatch_CuFFT(int argc, char **argv, cufftDoubleComplex* h_a, cuff
 
 
 
+   cudaMemGetInfo  (&mem_free_0, & mem_tot_0);
+std::cout<<"Free memory after malloc: "<<mem_free_0<<std::endl;
+
   //copy data
 	 cudaStatus = cudaMemcpy(d_a, h_a, sizeof(cufftDoubleComplex)*K*K*K, cudaMemcpyHostToDevice);
           if (cudaStatus != cudaSuccess) {
@@ -183,7 +194,7 @@ cudaError_t minibatch_CuFFT(int argc, char **argv, cufftDoubleComplex* h_a, cuff
 
 	cout<<"creating first stage fft plan"<<endl;
 	if (cufftPlanMany((plans+0), rank, t_size, inembed0, istride, idist, onembed0, ostride, odist, CUFFT_Z2Z, batch)!=CUFFT_SUCCESS){
-		fprintf(stderr, "CUFFT error: Plan creation failed");
+		fprintf(stderr, "CUFFT error: Plan 0 creation failed");
 		goto Error;
 	};
 
@@ -206,7 +217,7 @@ cudaError_t minibatch_CuFFT(int argc, char **argv, cufftDoubleComplex* h_a, cuff
                         &inembed1, B, 1, // *inembed, istride, idist
                         &onembed1, B, 1, // *onembed, ostride, odist
                         CUFFT_Z2Z, B) != CUFFT_SUCCESS){
-                     fprintf(stderr, "CUFFT error: Plan creation failed");
+                     fprintf(stderr, "CUFFT error: Plan 1 creation failed");
                      goto Error;
                 }
 
@@ -229,7 +240,7 @@ if (cufftPlanMany((plans+2), 1, &n_2,
 &inembed2, B, 1, // *inembed, istride, idist
 &onembed2, B, 1, // *onembed, ostride, odist
 CUFFT_Z2Z, B) != CUFFT_SUCCESS){
-  fprintf(stderr, "CUFFT error: Plan creation failed");
+  fprintf(stderr, "CUFFT error: Plan 2 creation failed");
   goto Error;
 }
 
@@ -245,7 +256,7 @@ if (cufftPlanMany((plans+3), 2, n_3,
 inembed3, 1, NX*NY, // *inembed, istride, idist
 onembed3, 1,NX*NY,  // *onembed, ostride, odist
 CUFFT_Z2Z, (K + ((NZ-K)/DS) )) != CUFFT_SUCCESS){
-  fprintf(stderr, "CUFFT error: Plan creation failed");
+  fprintf(stderr, "CUFFT error: Plan 3 creation failed");
   goto Error;
 }
 
