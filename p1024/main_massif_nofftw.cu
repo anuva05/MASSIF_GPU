@@ -40,14 +40,14 @@ int main(int argc, char **argv){
   unsampled_result=(cufftDoubleComplex*)malloc(sizeof(cufftDoubleComplex)*NX*NY*((NZ-K)/DS));
   small_cube = (cufftDoubleComplex*)malloc(sizeof(cufftDoubleComplex)*(K*K*K));
 
-
+  printf("here\n");
   // Choosing CUDA device with newer architect
   //int dev = findCudaDevice(argc, (const char **)argv);
 
   //allocating device side arrays
   cudaMalloc((void**)&d_a, sizeof(cufftDoubleComplex)*K*K*K);
   if (cudaGetLastError() != cudaSuccess){
-    fprintf(stderr, "Cuda error: Failed to allocate\n");
+    fprintf(stderr, "Cuda error: Failed to allocate small cube\n");
     return 0;
   }
 

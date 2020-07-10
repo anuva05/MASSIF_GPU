@@ -1,2 +1,34 @@
 FFTW is disabled for the examples in this folder. Only CUDA code with downsampling is being tested for sizes equal to and larger than 1024 x 1024 x 1024
 
+
+1. To run on the Bridges AI allocation, use: 
+interact -A cc5fpap -p GPU-AI --gres=gpu:volta32:1 
+
+2. Then, if the executable has not been made,do :
+module avail cuda
+make
+
+
+3. Inside your interactive session or your batch job  you must first issue the command
+module load singularity
+
+
+4. Then to execute, open a singularity shell
+singularity shell --nv /pylon5/containers/ngc/tensorflow/19.05-py3.simg
+
+5. Then, execute the bash script which will execute the massif.x. Do the following:
+./run_code.sh
+
+
+
+### ANOTHER try
+
+1. interact with GPU compute node
+
+
+2. do "module load singularity"
+
+3. then use the command " singularity run --nv /pylon5/containers/ngc/tensorflow/19.05-py3.simg"
+
+4. see the message there that NVIDIA driver was not loaded
+

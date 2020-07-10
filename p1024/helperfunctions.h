@@ -6,7 +6,6 @@
 #include <cuda_runtime.h>
 #include <cufft.h>
 #include <cufftXt.h>
-#include <fftw3.h>
 #include <float.h>
 
 

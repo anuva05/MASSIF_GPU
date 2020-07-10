@@ -1,0 +1,3 @@
+*.o
+*.x
+cuda_by_example/*
