@@ -1,0 +1,10 @@
+Additional feature that allows user to start the domain cube at points other than (0,0,0)
+Preferable to use startX, startY, startZ values that are even or powers of 2.
+
+
+In this folder, we put the timing counter around just the execution of fft plans in both cpu(fftw) and gpu.
+
+
+To see GPU usage:
+./massif.x > output.txt | watch nvidia-smi
+

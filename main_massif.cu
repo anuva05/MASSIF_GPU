@@ -24,9 +24,14 @@ int main(int argc, char **argv){
 	cufftDoubleComplex *data;
 	cufftDoubleComplex *small_cube;
 	cufftDoubleComplex *result;
-  double *fftw_input = new double[2*NX*NY*NZ];
-  double *fftw_output = new double[2*NX*NY*NZ];
-	double  *cufft_output = new double[2*NX*NY*NZ];
+  
+  unsigned long long int NPOINTS;
+ 
+  NPOINTS= NX*NY*NZ;
+  cout << NPOINTS <<endl;
+  double *fftw_input;// = new double[NPOINTS];
+  double *fftw_output;// = new double[2*NX*NY*NZ];
+  double  *cufft_output;// = new double[2*NX*NY*NZ];
   int count;
   int correct;
   fftw_plan plan3d[2];
@@ -44,8 +49,9 @@ int main(int argc, char **argv){
   unsampled_result=(cufftDoubleComplex*)malloc(sizeof(cufftDoubleComplex)*NX*NY*((NZ-K)/DS));
 	data = (cufftDoubleComplex*)malloc(sizeof(cufftDoubleComplex)*(NX*NY*NZ));
   small_cube = (cufftDoubleComplex*)malloc(sizeof(cufftDoubleComplex)*(K*K*K));
-
-
+  fftw_input = (double*)malloc(sizeof(double)*2*NPOINTS);
+  fftw_output = (double*)malloc(sizeof(double)*2*NPOINTS);
+  cufft_output = (double*)malloc(sizeof(double)*2*NPOINTS);
   // Choosing CUDA device with newer architect
   //int dev = findCudaDevice(argc, (const char **)argv);
 

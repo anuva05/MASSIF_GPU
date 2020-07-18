@@ -1,0 +1,1041 @@
+creating data
+Run cufft
+final samples = 65528
+num entries : 65528
+Init c.result to zeros..
+creating first stage fft plan
+cufftstatus:0
+creating second stage plan
+executing first stage fft
+Executing batch number0
+Offset:0
+Executing batch number1
+Offset:512
+Executing batch number2
+Offset:1024
+Executing batch number3
+Offset:1536
+Executing batch number4
+Offset:2048
+Executing batch number5
+Offset:2560
+Executing batch number6
+Offset:3072
+Executing batch number7
+Offset:3584
+Executing batch number8
+Offset:4096
+Executing batch number9
+Offset:4608
+Executing batch number10
+Offset:5120
+Executing batch number11
+Offset:5632
+Executing batch number12
+Offset:6144
+Executing batch number13
+Offset:6656
+Executing batch number14
+Offset:7168
+Executing batch number15
+Offset:7680
+Executing batch number16
+Offset:8192
+Executing batch number17
+Offset:8704
+Executing batch number18
+Offset:9216
+Executing batch number19
+Offset:9728
+Executing batch number20
+Offset:10240
+Executing batch number21
+Offset:10752
+Executing batch number22
+Offset:11264
+Executing batch number23
+Offset:11776
+Executing batch number24
+Offset:12288
+Executing batch number25
+Offset:12800
+Executing batch number26
+Offset:13312
+Executing batch number27
+Offset:13824
+Executing batch number28
+Offset:14336
+Executing batch number29
+Offset:14848
+Executing batch number30
+Offset:15360
+Executing batch number31
+Offset:15872
+Executing batch number32
+Offset:16384
+Executing batch number33
+Offset:16896
+Executing batch number34
+Offset:17408
+Executing batch number35
+Offset:17920
+Executing batch number36
+Offset:18432
+Executing batch number37
+Offset:18944
+Executing batch number38
+Offset:19456
+Executing batch number39
+Offset:19968
+Executing batch number40
+Offset:20480
+Executing batch number41
+Offset:20992
+Executing batch number42
+Offset:21504
+Executing batch number43
+Offset:22016
+Executing batch number44
+Offset:22528
+Executing batch number45
+Offset:23040
+Executing batch number46
+Offset:23552
+Executing batch number47
+Offset:24064
+Executing batch number48
+Offset:24576
+Executing batch number49
+Offset:25088
+Executing batch number50
+Offset:25600
+Executing batch number51
+Offset:26112
+Executing batch number52
+Offset:26624
+Executing batch number53
+Offset:27136
+Executing batch number54
+Offset:27648
+Executing batch number55
+Offset:28160
+Executing batch number56
+Offset:28672
+Executing batch number57
+Offset:29184
+Executing batch number58
+Offset:29696
+Executing batch number59
+Offset:30208
+Executing batch number60
+Offset:30720
+Executing batch number61
+Offset:31232
+Executing batch number62
+Offset:31744
+Executing batch number63
+Offset:32256
+Executing batch number64
+Offset:32768
+Executing batch number65
+Offset:33280
+Executing batch number66
+Offset:33792
+Executing batch number67
+Offset:34304
+Executing batch number68
+Offset:34816
+Executing batch number69
+Offset:35328
+Executing batch number70
+Offset:35840
+Executing batch number71
+Offset:36352
+Executing batch number72
+Offset:36864
+Executing batch number73
+Offset:37376
+Executing batch number74
+Offset:37888
+Executing batch number75
+Offset:38400
+Executing batch number76
+Offset:38912
+Executing batch number77
+Offset:39424
+Executing batch number78
+Offset:39936
+Executing batch number79
+Offset:40448
+Executing batch number80
+Offset:40960
+Executing batch number81
+Offset:41472
+Executing batch number82
+Offset:41984
+Executing batch number83
+Offset:42496
+Executing batch number84
+Offset:43008
+Executing batch number85
+Offset:43520
+Executing batch number86
+Offset:44032
+Executing batch number87
+Offset:44544
+Executing batch number88
+Offset:45056
+Executing batch number89
+Offset:45568
+Executing batch number90
+Offset:46080
+Executing batch number91
+Offset:46592
+Executing batch number92
+Offset:47104
+Executing batch number93
+Offset:47616
+Executing batch number94
+Offset:48128
+Executing batch number95
+Offset:48640
+Executing batch number96
+Offset:49152
+Executing batch number97
+Offset:49664
+Executing batch number98
+Offset:50176
+Executing batch number99
+Offset:50688
+Executing batch number100
+Offset:51200
+Executing batch number101
+Offset:51712
+Executing batch number102
+Offset:52224
+Executing batch number103
+Offset:52736
+Executing batch number104
+Offset:53248
+Executing batch number105
+Offset:53760
+Executing batch number106
+Offset:54272
+Executing batch number107
+Offset:54784
+Executing batch number108
+Offset:55296
+Executing batch number109
+Offset:55808
+Executing batch number110
+Offset:56320
+Executing batch number111
+Offset:56832
+Executing batch number112
+Offset:57344
+Executing batch number113
+Offset:57856
+Executing batch number114
+Offset:58368
+Executing batch number115
+Offset:58880
+Executing batch number116
+Offset:59392
+Executing batch number117
+Offset:59904
+Executing batch number118
+Offset:60416
+Executing batch number119
+Offset:60928
+Executing batch number120
+Offset:61440
+Executing batch number121
+Offset:61952
+Executing batch number122
+Offset:62464
+Executing batch number123
+Offset:62976
+Executing batch number124
+Offset:63488
+Executing batch number125
+Offset:64000
+Executing batch number126
+Offset:64512
+Executing batch number127
+Offset:65024
+Executing batch number128
+Offset:65536
+Executing batch number129
+Offset:66048
+Executing batch number130
+Offset:66560
+Executing batch number131
+Offset:67072
+Executing batch number132
+Offset:67584
+Executing batch number133
+Offset:68096
+Executing batch number134
+Offset:68608
+Executing batch number135
+Offset:69120
+Executing batch number136
+Offset:69632
+Executing batch number137
+Offset:70144
+Executing batch number138
+Offset:70656
+Executing batch number139
+Offset:71168
+Executing batch number140
+Offset:71680
+Executing batch number141
+Offset:72192
+Executing batch number142
+Offset:72704
+Executing batch number143
+Offset:73216
+Executing batch number144
+Offset:73728
+Executing batch number145
+Offset:74240
+Executing batch number146
+Offset:74752
+Executing batch number147
+Offset:75264
+Executing batch number148
+Offset:75776
+Executing batch number149
+Offset:76288
+Executing batch number150
+Offset:76800
+Executing batch number151
+Offset:77312
+Executing batch number152
+Offset:77824
+Executing batch number153
+Offset:78336
+Executing batch number154
+Offset:78848
+Executing batch number155
+Offset:79360
+Executing batch number156
+Offset:79872
+Executing batch number157
+Offset:80384
+Executing batch number158
+Offset:80896
+Executing batch number159
+Offset:81408
+Executing batch number160
+Offset:81920
+Executing batch number161
+Offset:82432
+Executing batch number162
+Offset:82944
+Executing batch number163
+Offset:83456
+Executing batch number164
+Offset:83968
+Executing batch number165
+Offset:84480
+Executing batch number166
+Offset:84992
+Executing batch number167
+Offset:85504
+Executing batch number168
+Offset:86016
+Executing batch number169
+Offset:86528
+Executing batch number170
+Offset:87040
+Executing batch number171
+Offset:87552
+Executing batch number172
+Offset:88064
+Executing batch number173
+Offset:88576
+Executing batch number174
+Offset:89088
+Executing batch number175
+Offset:89600
+Executing batch number176
+Offset:90112
+Executing batch number177
+Offset:90624
+Executing batch number178
+Offset:91136
+Executing batch number179
+Offset:91648
+Executing batch number180
+Offset:92160
+Executing batch number181
+Offset:92672
+Executing batch number182
+Offset:93184
+Executing batch number183
+Offset:93696
+Executing batch number184
+Offset:94208
+Executing batch number185
+Offset:94720
+Executing batch number186
+Offset:95232
+Executing batch number187
+Offset:95744
+Executing batch number188
+Offset:96256
+Executing batch number189
+Offset:96768
+Executing batch number190
+Offset:97280
+Executing batch number191
+Offset:97792
+Executing batch number192
+Offset:98304
+Executing batch number193
+Offset:98816
+Executing batch number194
+Offset:99328
+Executing batch number195
+Offset:99840
+Executing batch number196
+Offset:100352
+Executing batch number197
+Offset:100864
+Executing batch number198
+Offset:101376
+Executing batch number199
+Offset:101888
+Executing batch number200
+Offset:102400
+Executing batch number201
+Offset:102912
+Executing batch number202
+Offset:103424
+Executing batch number203
+Offset:103936
+Executing batch number204
+Offset:104448
+Executing batch number205
+Offset:104960
+Executing batch number206
+Offset:105472
+Executing batch number207
+Offset:105984
+Executing batch number208
+Offset:106496
+Executing batch number209
+Offset:107008
+Executing batch number210
+Offset:107520
+Executing batch number211
+Offset:108032
+Executing batch number212
+Offset:108544
+Executing batch number213
+Offset:109056
+Executing batch number214
+Offset:109568
+Executing batch number215
+Offset:110080
+Executing batch number216
+Offset:110592
+Executing batch number217
+Offset:111104
+Executing batch number218
+Offset:111616
+Executing batch number219
+Offset:112128
+Executing batch number220
+Offset:112640
+Executing batch number221
+Offset:113152
+Executing batch number222
+Offset:113664
+Executing batch number223
+Offset:114176
+Executing batch number224
+Offset:114688
+Executing batch number225
+Offset:115200
+Executing batch number226
+Offset:115712
+Executing batch number227
+Offset:116224
+Executing batch number228
+Offset:116736
+Executing batch number229
+Offset:117248
+Executing batch number230
+Offset:117760
+Executing batch number231
+Offset:118272
+Executing batch number232
+Offset:118784
+Executing batch number233
+Offset:119296
+Executing batch number234
+Offset:119808
+Executing batch number235
+Offset:120320
+Executing batch number236
+Offset:120832
+Executing batch number237
+Offset:121344
+Executing batch number238
+Offset:121856
+Executing batch number239
+Offset:122368
+Executing batch number240
+Offset:122880
+Executing batch number241
+Offset:123392
+Executing batch number242
+Offset:123904
+Executing batch number243
+Offset:124416
+Executing batch number244
+Offset:124928
+Executing batch number245
+Offset:125440
+Executing batch number246
+Offset:125952
+Executing batch number247
+Offset:126464
+Executing batch number248
+Offset:126976
+Executing batch number249
+Offset:127488
+Executing batch number250
+Offset:128000
+Executing batch number251
+Offset:128512
+Executing batch number252
+Offset:129024
+Executing batch number253
+Offset:129536
+Executing batch number254
+Offset:130048
+Executing batch number255
+Offset:130560
+Executing batch number256
+Offset:131072
+Executing batch number257
+Offset:131584
+Executing batch number258
+Offset:132096
+Executing batch number259
+Offset:132608
+Executing batch number260
+Offset:133120
+Executing batch number261
+Offset:133632
+Executing batch number262
+Offset:134144
+Executing batch number263
+Offset:134656
+Executing batch number264
+Offset:135168
+Executing batch number265
+Offset:135680
+Executing batch number266
+Offset:136192
+Executing batch number267
+Offset:136704
+Executing batch number268
+Offset:137216
+Executing batch number269
+Offset:137728
+Executing batch number270
+Offset:138240
+Executing batch number271
+Offset:138752
+Executing batch number272
+Offset:139264
+Executing batch number273
+Offset:139776
+Executing batch number274
+Offset:140288
+Executing batch number275
+Offset:140800
+Executing batch number276
+Offset:141312
+Executing batch number277
+Offset:141824
+Executing batch number278
+Offset:142336
+Executing batch number279
+Offset:142848
+Executing batch number280
+Offset:143360
+Executing batch number281
+Offset:143872
+Executing batch number282
+Offset:144384
+Executing batch number283
+Offset:144896
+Executing batch number284
+Offset:145408
+Executing batch number285
+Offset:145920
+Executing batch number286
+Offset:146432
+Executing batch number287
+Offset:146944
+Executing batch number288
+Offset:147456
+Executing batch number289
+Offset:147968
+Executing batch number290
+Offset:148480
+Executing batch number291
+Offset:148992
+Executing batch number292
+Offset:149504
+Executing batch number293
+Offset:150016
+Executing batch number294
+Offset:150528
+Executing batch number295
+Offset:151040
+Executing batch number296
+Offset:151552
+Executing batch number297
+Offset:152064
+Executing batch number298
+Offset:152576
+Executing batch number299
+Offset:153088
+Executing batch number300
+Offset:153600
+Executing batch number301
+Offset:154112
+Executing batch number302
+Offset:154624
+Executing batch number303
+Offset:155136
+Executing batch number304
+Offset:155648
+Executing batch number305
+Offset:156160
+Executing batch number306
+Offset:156672
+Executing batch number307
+Offset:157184
+Executing batch number308
+Offset:157696
+Executing batch number309
+Offset:158208
+Executing batch number310
+Offset:158720
+Executing batch number311
+Offset:159232
+Executing batch number312
+Offset:159744
+Executing batch number313
+Offset:160256
+Executing batch number314
+Offset:160768
+Executing batch number315
+Offset:161280
+Executing batch number316
+Offset:161792
+Executing batch number317
+Offset:162304
+Executing batch number318
+Offset:162816
+Executing batch number319
+Offset:163328
+Executing batch number320
+Offset:163840
+Executing batch number321
+Offset:164352
+Executing batch number322
+Offset:164864
+Executing batch number323
+Offset:165376
+Executing batch number324
+Offset:165888
+Executing batch number325
+Offset:166400
+Executing batch number326
+Offset:166912
+Executing batch number327
+Offset:167424
+Executing batch number328
+Offset:167936
+Executing batch number329
+Offset:168448
+Executing batch number330
+Offset:168960
+Executing batch number331
+Offset:169472
+Executing batch number332
+Offset:169984
+Executing batch number333
+Offset:170496
+Executing batch number334
+Offset:171008
+Executing batch number335
+Offset:171520
+Executing batch number336
+Offset:172032
+Executing batch number337
+Offset:172544
+Executing batch number338
+Offset:173056
+Executing batch number339
+Offset:173568
+Executing batch number340
+Offset:174080
+Executing batch number341
+Offset:174592
+Executing batch number342
+Offset:175104
+Executing batch number343
+Offset:175616
+Executing batch number344
+Offset:176128
+Executing batch number345
+Offset:176640
+Executing batch number346
+Offset:177152
+Executing batch number347
+Offset:177664
+Executing batch number348
+Offset:178176
+Executing batch number349
+Offset:178688
+Executing batch number350
+Offset:179200
+Executing batch number351
+Offset:179712
+Executing batch number352
+Offset:180224
+Executing batch number353
+Offset:180736
+Executing batch number354
+Offset:181248
+Executing batch number355
+Offset:181760
+Executing batch number356
+Offset:182272
+Executing batch number357
+Offset:182784
+Executing batch number358
+Offset:183296
+Executing batch number359
+Offset:183808
+Executing batch number360
+Offset:184320
+Executing batch number361
+Offset:184832
+Executing batch number362
+Offset:185344
+Executing batch number363
+Offset:185856
+Executing batch number364
+Offset:186368
+Executing batch number365
+Offset:186880
+Executing batch number366
+Offset:187392
+Executing batch number367
+Offset:187904
+Executing batch number368
+Offset:188416
+Executing batch number369
+Offset:188928
+Executing batch number370
+Offset:189440
+Executing batch number371
+Offset:189952
+Executing batch number372
+Offset:190464
+Executing batch number373
+Offset:190976
+Executing batch number374
+Offset:191488
+Executing batch number375
+Offset:192000
+Executing batch number376
+Offset:192512
+Executing batch number377
+Offset:193024
+Executing batch number378
+Offset:193536
+Executing batch number379
+Offset:194048
+Executing batch number380
+Offset:194560
+Executing batch number381
+Offset:195072
+Executing batch number382
+Offset:195584
+Executing batch number383
+Offset:196096
+Executing batch number384
+Offset:196608
+Executing batch number385
+Offset:197120
+Executing batch number386
+Offset:197632
+Executing batch number387
+Offset:198144
+Executing batch number388
+Offset:198656
+Executing batch number389
+Offset:199168
+Executing batch number390
+Offset:199680
+Executing batch number391
+Offset:200192
+Executing batch number392
+Offset:200704
+Executing batch number393
+Offset:201216
+Executing batch number394
+Offset:201728
+Executing batch number395
+Offset:202240
+Executing batch number396
+Offset:202752
+Executing batch number397
+Offset:203264
+Executing batch number398
+Offset:203776
+Executing batch number399
+Offset:204288
+Executing batch number400
+Offset:204800
+Executing batch number401
+Offset:205312
+Executing batch number402
+Offset:205824
+Executing batch number403
+Offset:206336
+Executing batch number404
+Offset:206848
+Executing batch number405
+Offset:207360
+Executing batch number406
+Offset:207872
+Executing batch number407
+Offset:208384
+Executing batch number408
+Offset:208896
+Executing batch number409
+Offset:209408
+Executing batch number410
+Offset:209920
+Executing batch number411
+Offset:210432
+Executing batch number412
+Offset:210944
+Executing batch number413
+Offset:211456
+Executing batch number414
+Offset:211968
+Executing batch number415
+Offset:212480
+Executing batch number416
+Offset:212992
+Executing batch number417
+Offset:213504
+Executing batch number418
+Offset:214016
+Executing batch number419
+Offset:214528
+Executing batch number420
+Offset:215040
+Executing batch number421
+Offset:215552
+Executing batch number422
+Offset:216064
+Executing batch number423
+Offset:216576
+Executing batch number424
+Offset:217088
+Executing batch number425
+Offset:217600
+Executing batch number426
+Offset:218112
+Executing batch number427
+Offset:218624
+Executing batch number428
+Offset:219136
+Executing batch number429
+Offset:219648
+Executing batch number430
+Offset:220160
+Executing batch number431
+Offset:220672
+Executing batch number432
+Offset:221184
+Executing batch number433
+Offset:221696
+Executing batch number434
+Offset:222208
+Executing batch number435
+Offset:222720
+Executing batch number436
+Offset:223232
+Executing batch number437
+Offset:223744
+Executing batch number438
+Offset:224256
+Executing batch number439
+Offset:224768
+Executing batch number440
+Offset:225280
+Executing batch number441
+Offset:225792
+Executing batch number442
+Offset:226304
+Executing batch number443
+Offset:226816
+Executing batch number444
+Offset:227328
+Executing batch number445
+Offset:227840
+Executing batch number446
+Offset:228352
+Executing batch number447
+Offset:228864
+Executing batch number448
+Offset:229376
+Executing batch number449
+Offset:229888
+Executing batch number450
+Offset:230400
+Executing batch number451
+Offset:230912
+Executing batch number452
+Offset:231424
+Executing batch number453
+Offset:231936
+Executing batch number454
+Offset:232448
+Executing batch number455
+Offset:232960
+Executing batch number456
+Offset:233472
+Executing batch number457
+Offset:233984
+Executing batch number458
+Offset:234496
+Executing batch number459
+Offset:235008
+Executing batch number460
+Offset:235520
+Executing batch number461
+Offset:236032
+Executing batch number462
+Offset:236544
+Executing batch number463
+Offset:237056
+Executing batch number464
+Offset:237568
+Executing batch number465
+Offset:238080
+Executing batch number466
+Offset:238592
+Executing batch number467
+Offset:239104
+Executing batch number468
+Offset:239616
+Executing batch number469
+Offset:240128
+Executing batch number470
+Offset:240640
+Executing batch number471
+Offset:241152
+Executing batch number472
+Offset:241664
+Executing batch number473
+Offset:242176
+Executing batch number474
+Offset:242688
+Executing batch number475
+Offset:243200
+Executing batch number476
+Offset:243712
+Executing batch number477
+Offset:244224
+Executing batch number478
+Offset:244736
+Executing batch number479
+Offset:245248
+Executing batch number480
+Offset:245760
+Executing batch number481
+Offset:246272
+Executing batch number482
+Offset:246784
+Executing batch number483
+Offset:247296
+Executing batch number484
+Offset:247808
+Executing batch number485
+Offset:248320
+Executing batch number486
+Offset:248832
+Executing batch number487
+Offset:249344
+Executing batch number488
+Offset:249856
+Executing batch number489
+Offset:250368
+Executing batch number490
+Offset:250880
+Executing batch number491
+Offset:251392
+Executing batch number492
+Offset:251904
+Executing batch number493
+Offset:252416
+Executing batch number494
+Offset:252928
+Executing batch number495
+Offset:253440
+Executing batch number496
+Offset:253952
+Executing batch number497
+Offset:254464
+Executing batch number498
+Offset:254976
+Executing batch number499
+Offset:255488
+Executing batch number500
+Offset:256000
+Executing batch number501
+Offset:256512
+Executing batch number502
+Offset:257024
+Executing batch number503
+Offset:257536
+Executing batch number504
+Offset:258048
+Executing batch number505
+Offset:258560
+Executing batch number506
+Offset:259072
+Executing batch number507
+Offset:259584
+Executing batch number508
+Offset:260096
+Executing batch number509
+Offset:260608
+Executing batch number510
+Offset:261120
+Executing batch number511
+Offset:261632
+about to copy out the value in struct
+copied numentries: 65528
+copied first entry to c_result: -0.000000
+SUM OF SQUARES OF SAMPLES  = 6430841661215375114633216.000000
+creating fftw plan
+fftw input
+end of input, count=268435456
+executing FFTW forward plan

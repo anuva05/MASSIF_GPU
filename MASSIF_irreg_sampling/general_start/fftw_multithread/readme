@@ -1,0 +1,9 @@
+module load comp-intel/2018.0.128
+
+Compiling fftw code with mkl : 
+icc -O3 fftw_c_code.c -I/opt/intel/mkl/include/fftw -mkl -o test
+
+have to include:
+/opt/intel/mkl/include/fftw
+
+-mkl

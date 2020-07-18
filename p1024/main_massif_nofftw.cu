@@ -160,7 +160,7 @@ else{
 }
 
 
-cout << double(duration.count())/1000000 << "Seconds"  << endl;
+cout << "CUDA plan create+execute"  << double(duration.count())/1000000 << "Seconds"  << endl;
 
 
 

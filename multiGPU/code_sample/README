@@ -1,0 +1,2 @@
+SAMPLE FROM NVIDIA website about running 3D FFT on 2 GPUs.
+taken from https://docs.nvidia.com/cuda/cufft/index.html#threed-complex-to-complex-xt-transforms

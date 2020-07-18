@@ -26,9 +26,15 @@ singularity shell --nv /pylon5/containers/ngc/tensorflow/19.05-py3.simg
 1. interact with GPU compute node
 
 
-2. do "module load singularity"
+2. do "module load singularity"" and "module load cuda"
 
-3. then use the command " singularity run --nv /pylon5/containers/ngc/tensorflow/19.05-py3.simg"
+3. then use the command "singularity exec --nv /pylon5/containers/ngc/tensorflow/tensorflow_20.06-tf2-py3.sif ./massif.x
 
-4. see the message there that NVIDIA driver was not loaded
+In order to see GPU usage as well, do:
+singularity exec --nv /pylon5/containers/ngc/tensorflow/tensorflow_20.06-tf2-py3.sif ./massif.x | watch nvidia-smi
 
+So far it seems largest size:
+2048, 2048, 2048
+k=64
+ds = 64
+b=512

@@ -127,6 +127,11 @@ cudaError_t minibatch_CuFFT(int argc, char **argv, cufftDoubleComplex* h_a, cuff
   int num_samples;
 
 
+  //timing
+    cudaEvent_t start, stop;
+  cudaEventCreate(&start);
+  cudaEventCreate(&stop);
+  float milliseconds = 0;
 
   cudaMemGetInfo  (&mem_free_0, & mem_tot_0);
 std::cout<<"Free memory before malloc: "<<mem_free_0<<std::endl;
@@ -273,6 +278,10 @@ cudaDeviceSynchronize();
 cout<<"executing first stage fft"<<endl;
 
 
+cudaEventRecord(start);
+
+
+
 	 if (cufftExecZ2Z(*(plans+0), d_a, d_fw_stage0, CUFFT_FORWARD) != CUFFT_SUCCESS){
                         fprintf(stderr, "CUFFT error: ExecZ2Z Forward failed");
                         goto Error;
@@ -361,6 +370,15 @@ cout<<"executing first stage fft"<<endl;
                fprintf(stderr, "cudaDeviceSynchronize returned error code %d after launching addKernel!\n", cudaStatus);
                goto Error;
        }
+
+
+ cudaEventRecord(stop);
+cudaEventSynchronize(stop);
+cudaEventElapsedTime(&milliseconds, start, stop);
+
+
+  cout << "CUDA time duration (plan execute) in ms:" << milliseconds << endl ;
+
 
  // ------------------------ Finished executing cuffts ---------------------------//
 //Copy out output

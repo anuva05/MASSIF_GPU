@@ -1,2 +1,6 @@
 Additional feature that allows user to start the domain cube at points other than (0,0,0)
 Preferable to use startX, startY, startZ values that are even or powers of 2.
+
+To see GPU usage:
+./massif.x > output.txt | watch nvidia-smi
+
